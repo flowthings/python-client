@@ -1,4 +1,4 @@
-flow-python-client
+flowthings-python-client
 ==================
 
 ```sh
