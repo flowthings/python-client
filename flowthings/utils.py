@@ -1,10 +1,14 @@
 from time import time
 from hashlib import sha1
 
+import logging
 import requests
 
 from .exceptions import *
 from .builders import Token
+
+
+logger = logging.getLogger('flowthings')
 
 
 def default(x, d):
@@ -24,8 +28,12 @@ def mk_headers(creds):
 
 def api_request(method, url, params=None, data=None, creds=None):
     """ Make a request with the proper credential headers. """
-    res = requests.request(method, url, params=params, data=data,
+    logger.info('%s %s %s %s', method, url, params, data)
+    res = requests.request(method, url,
+                           params=params,
+                           data=data,
                            headers=mk_headers(creds))
+    logger.info('%d %s', res.status_code, res.content)
     return (res.content, res.headers, res.status_code)
 
 
