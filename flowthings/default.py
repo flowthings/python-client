@@ -9,9 +9,9 @@ DEFAULT = {}
 
 
 class Defaults(object):
-    def __init__(self, async_lib=None, secure=True, host='api.flow-things.io',
-                 version='1b', request=api_request, encoder=json,
-                 params=DEFAULT, ws_host='ws.flow-things.io'):
+    def __init__(self, async_lib=None, secure=True, host='api.flowthings.io',
+                 version='0.1', request=api_request, encoder=json,
+                 params=DEFAULT, ws_host='ws.flowthings.io'):
 
         if params is DEFAULT:
             params = {}

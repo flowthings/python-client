@@ -1,7 +1,7 @@
 from collections import MutableMapping
 
 from . import services
-from .exceptions import FlowPlatException
+from .exceptions import FlowThingsException
 from .default import defaults
 
 
@@ -128,7 +128,7 @@ class AsyncAPI(object):
                 thread = self._queue.pop(0)
                 try:
                     res = getattr(thread, get_method)()
-                except FlowPlatException as e:
+                except FlowThingsException as e:
                     if with_exceptions:
                         results.append((e, None))
                     else:

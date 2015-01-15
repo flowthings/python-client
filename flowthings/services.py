@@ -92,13 +92,13 @@ class FindableServiceMixin(object):
         return self.request('GET', '/' + id, params=P(**kwargs))
 
     def find_or_else(self, id, default=None, **kwargs):
-        """ Supply a default value instead of throwing a FlowPlatNotFound
+        """ Supply a default value instead of throwing a FlowThingsNotFound
         exception. Note, that this does not silence other exceptions, only
         404s from the platform. """
 
         try:
             return self.find_by_id(id, **kwargs)
-        except FlowPlatNotFound:
+        except FlowThingsNotFound:
             return default
 
     def find_by_ids(self, ids, **kwargs):

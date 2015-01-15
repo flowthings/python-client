@@ -1,5 +1,5 @@
 from unittest import TestCase
-from flow import *
+from flowthings import *
 
 
 CREDS = Token('acc', 'tok')
@@ -34,7 +34,7 @@ def mock_api_request_ok(method, url, params=None, data=None, creds=None):
 
 
 def mock_api_request_not_found(method, url, params=None, data=None, creds=None):
-    raise FlowPlatNotFound
+    raise FlowThingsNotFound
 
 
 def TestAPI(*args, **kwargs):

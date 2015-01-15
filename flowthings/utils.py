@@ -30,15 +30,15 @@ def api_request(method, url, params=None, data=None, creds=None):
 
 
 ERROR_TABLE = {
-    400: FlowPlatBadRequest,
-    403: FlowPlatForbidden,
-    404: FlowPlatNotFound,
-    500: FlowPlatServerError,
+    400: FlowThingsBadRequest,
+    403: FlowThingsForbidden,
+    404: FlowThingsNotFound,
+    500: FlowThingsServerError,
 }
 
 
 def plat_exception(res, status, creds=None, method=None, path=None,):
     """ Builds an appropriate exception given a bad platform response. """
     errors = res['head']['errors']
-    exc = ERROR_TABLE.get(res['head']['status'], FlowPlatException)
+    exc = ERROR_TABLE.get(res['head']['status'], FlowThingsException)
     return exc(errors=errors, creds=creds, method=method, path=path)

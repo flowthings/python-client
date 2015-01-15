@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>flow-things &mdash; Python  documentation</title>
+    <title>flowthings &mdash; Python  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -44,12 +44,12 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-flow_things">
-<span id="flow-things"></span><h1>flow-things<a class="headerlink" href="#module-flow_things" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-flowthings">
+<span id="flowthings"></span><h1>flowthings<a class="headerlink" href="#module-flowthings" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="flow_things.Token">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">Token</tt><big>(</big><em>account</em>, <em>token</em><big>)</big><a class="headerlink" href="#flow_things.Token" title="Permalink to this definition">¶</a></dt>
-<dd><p>Token objects may be passed to an <a class="reference internal" href="#flow_things.API" title="flow_things.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a>. This will be used to
+<dt id="flowthings.Token">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">Token</tt><big>(</big><em>account</em>, <em>token</em><big>)</big><a class="headerlink" href="#flowthings.Token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token objects may be passed to an <a class="reference internal" href="#flowthings.API" title="flowthings.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a>. This will be used to
 sign requests to the platform.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">creds</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="s">&#39;&lt;account&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;token&gt;&#39;</span><span class="p">)</span>
 </pre></div>
@@ -57,15 +57,15 @@ sign requests to the platform.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="flow_things.API">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">API</tt><big>(</big><em>creds</em>, <em>async_lib=DEFAULT</em>, <em>secure=DEFAULT</em>, <em>params=DEFAULT</em><big>)</big><a class="headerlink" href="#flow_things.API" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.API">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">API</tt><big>(</big><em>creds</em>, <em>async_lib=DEFAULT</em>, <em>secure=DEFAULT</em>, <em>params=DEFAULT</em><big>)</big><a class="headerlink" href="#flowthings.API" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new API instance for interacting with the platform.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span> <span class="o">=</span> <span class="n">API</span><span class="p">(</span><span class="n">creds</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Options labelled as <tt class="docutils literal"><span class="pre">DEFAULT</span></tt> will use the options set in the
-<a class="reference internal" href="#flow_things.defaults" title="flow_things.defaults"><tt class="xref py py-data docutils literal"><span class="pre">defaults</span></tt></a> configuration object.</p>
-<p>An <a class="reference internal" href="#flow_things.API" title="flow_things.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> is comprised of services for querying the different
+<a class="reference internal" href="#flowthings.defaults" title="flowthings.defaults"><tt class="xref py py-data docutils literal"><span class="pre">defaults</span></tt></a> configuration object.</p>
+<p>An <a class="reference internal" href="#flowthings.API" title="flowthings.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> is comprised of services for querying the different
 domains on the platform:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">flow</span></tt></li>
@@ -80,58 +80,58 @@ domains on the platform:</p>
 <p>For documentation on these services, read <a class="reference internal" href="#services"><em>Service Methods</em></a>,
 <a class="reference internal" href="#authentication"><em>Authentication</em></a>, and <a class="reference internal" href="#websockets"><em>WebSockets</em></a>.</p>
 <dl class="method">
-<dt id="flow_things.API.async">
-<tt class="descname">async</tt><big>(</big><span class="optional">[</span><em>pool</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flow_things.API.async" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.API.async">
+<tt class="descname">async</tt><big>(</big><span class="optional">[</span><em>pool</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flowthings.API.async" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an API wrapper for making asynchronous requests using either
-<tt class="docutils literal"><span class="pre">eventlet</span></tt> or <tt class="docutils literal"><span class="pre">gevent</span></tt>. Requests made using an <a class="reference internal" href="#flow_things.API.async" title="flow_things.API.async"><tt class="xref py py-meth docutils literal"><span class="pre">async()</span></tt></a> API
+<tt class="docutils literal"><span class="pre">eventlet</span></tt> or <tt class="docutils literal"><span class="pre">gevent</span></tt>. Requests made using an <a class="reference internal" href="#flowthings.API.async" title="flowthings.API.async"><tt class="xref py py-meth docutils literal"><span class="pre">async()</span></tt></a> API
 will return green threads.</p>
 <p>For more documentation, read <a class="reference internal" href="#async-and-parallel"><em>Asynchronous and Parallel Requests</em></a>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.API.lazy">
-<tt class="descname">lazy</tt><big>(</big><span class="optional">[</span><em>pool</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flow_things.API.lazy" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.API.lazy">
+<tt class="descname">lazy</tt><big>(</big><span class="optional">[</span><em>pool</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flowthings.API.lazy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an API wrapper for making implicitly parallel requests using
-either <tt class="docutils literal"><span class="pre">eventlet</span></tt> or <tt class="docutils literal"><span class="pre">gevent</span></tt>. Requests made using a <a class="reference internal" href="#flow_things.API.lazy" title="flow_things.API.lazy"><tt class="xref py py-meth docutils literal"><span class="pre">lazy()</span></tt></a>
+either <tt class="docutils literal"><span class="pre">eventlet</span></tt> or <tt class="docutils literal"><span class="pre">gevent</span></tt>. Requests made using a <a class="reference internal" href="#flowthings.API.lazy" title="flowthings.API.lazy"><tt class="xref py py-meth docutils literal"><span class="pre">lazy()</span></tt></a>
 API will return thunks that wait on their respective green thread when
 accessed.</p>
 <p>For more documentation, read <a class="reference internal" href="#async-and-parallel"><em>Asynchronous and Parallel Requests</em></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="flow_things.API.creds">
-<tt class="descname">creds</tt><a class="headerlink" href="#flow_things.API.creds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get or set the API&#8217;s <a class="reference internal" href="#flow_things.Token" title="flow_things.Token"><tt class="xref py py-class docutils literal"><span class="pre">Token</span></tt></a>.</p>
+<dt id="flowthings.API.creds">
+<tt class="descname">creds</tt><a class="headerlink" href="#flowthings.API.creds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the API&#8217;s <a class="reference internal" href="#flowthings.Token" title="flowthings.Token"><tt class="xref py py-class docutils literal"><span class="pre">Token</span></tt></a>.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="data">
-<dt id="flow_things.defaults">
-<tt class="descclassname">flow_things.</tt><tt class="descname">defaults</tt><a class="headerlink" href="#flow_things.defaults" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.defaults">
+<tt class="descclassname">flowthings.</tt><tt class="descname">defaults</tt><a class="headerlink" href="#flowthings.defaults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration object for globally setting default options for
-<a class="reference internal" href="#flow_things.API" title="flow_things.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> instances.</p>
+<a class="reference internal" href="#flowthings.API" title="flowthings.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> instances.</p>
 <dl class="attribute">
-<dt id="flow_things.defaults.async_lib">
-<tt class="descclassname">defaults.</tt><tt class="descname">async_lib</tt><a class="headerlink" href="#flow_things.defaults.async_lib" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.defaults.async_lib">
+<tt class="descclassname">defaults.</tt><tt class="descname">async_lib</tt><a class="headerlink" href="#flowthings.defaults.async_lib" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defaults to <tt class="docutils literal"><span class="pre">None</span></tt>. Supports <tt class="docutils literal"><span class="pre">eventlet</span></tt> and <tt class="docutils literal"><span class="pre">gevent</span></tt>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">eventlet</span>
 
-<span class="n">flow</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">async_lib</span> <span class="o">=</span> <span class="n">eventlet</span>
+<span class="n">flowthings</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">async_lib</span> <span class="o">=</span> <span class="n">eventlet</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="flow_things.defaults.secure">
-<tt class="descclassname">defaults.</tt><tt class="descname">secure</tt><a class="headerlink" href="#flow_things.defaults.secure" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.defaults.secure">
+<tt class="descclassname">defaults.</tt><tt class="descname">secure</tt><a class="headerlink" href="#flowthings.defaults.secure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defaults to <tt class="docutils literal"><span class="pre">True</span></tt>. When set to <tt class="docutils literal"><span class="pre">False</span></tt>, requests will be made over
 <tt class="docutils literal"><span class="pre">http://</span></tt> rather than <tt class="docutils literal"><span class="pre">https://</span></tt>.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="flow_things.defaults.params">
-<tt class="descclassname">defaults.</tt><tt class="descname">params</tt><a class="headerlink" href="#flow_things.defaults.params" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.defaults.params">
+<tt class="descclassname">defaults.</tt><tt class="descname">params</tt><a class="headerlink" href="#flowthings.defaults.params" title="Permalink to this definition">¶</a></dt>
 <dd><p>The default set of query string parameters sent with all requests.
 Defaults to <tt class="docutils literal"><span class="pre">{}</span></tt>.</p>
 </dd></dl>
@@ -140,11 +140,11 @@ Defaults to <tt class="docutils literal"><span class="pre">{}</span></tt>.</p>
 
 <div class="section" id="service-methods">
 <span id="services"></span><h2>Service Methods<a class="headerlink" href="#service-methods" title="Permalink to this headline">¶</a></h2>
-<p>All <a class="reference internal" href="#flow_things.API" title="flow_things.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> service requests return plain dictionaries of the request
+<p>All <a class="reference internal" href="#flowthings.API" title="flowthings.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> service requests return plain dictionaries of the request
 body. They may throw <a class="reference internal" href="#exceptions"><em>exceptions</em></a> in case of an error.</p>
 <dl class="method">
-<dt id="flow_things.service.find_by_id">
-<tt class="descclassname">service.</tt><tt class="descname">find_by_id</tt><big>(</big><em>id</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.find_by_id" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.find_by_id">
+<tt class="descclassname">service.</tt><tt class="descname">find_by_id</tt><big>(</big><em>id</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_by_id" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -153,14 +153,14 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.find_or_else">
-<tt class="descclassname">service.</tt><tt class="descname">find_or_else</tt><big>(</big><em>id</em>, <em>default=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.find_or_else" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.find_or_else">
+<tt class="descclassname">service.</tt><tt class="descname">find_or_else</tt><big>(</big><em>id</em>, <em>default=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_or_else" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -179,8 +179,8 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.find_by_ids">
-<tt class="descclassname">service.</tt><tt class="descname">find_by_ids</tt><big>(</big><em>ids</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.find_by_ids" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.find_by_ids">
+<tt class="descclassname">service.</tt><tt class="descname">find_by_ids</tt><big>(</big><em>ids</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_by_ids" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -195,8 +195,8 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.find_many">
-<tt class="descclassname">service.</tt><tt class="descname">find_many</tt><big>(</big><em>*filters</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.find_many" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.find_many">
+<tt class="descclassname">service.</tt><tt class="descname">find_many</tt><big>(</big><em>*filters</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_many" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -211,10 +211,10 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.find">
-<tt class="descclassname">service.</tt><tt class="descname">find</tt><big>(</big><em>...</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>An overloaded method which may call one of <a class="reference internal" href="#flow_things.service.find_by_id" title="flow_things.service.find_by_id"><tt class="xref py py-meth docutils literal"><span class="pre">find_by_id()</span></tt></a>,
-<a class="reference internal" href="#flow_things.service.find_by_ids" title="flow_things.service.find_by_ids"><tt class="xref py py-meth docutils literal"><span class="pre">find_by_ids()</span></tt></a>, or <a class="reference internal" href="#flow_things.service.find_many" title="flow_things.service.find_many"><tt class="xref py py-meth docutils literal"><span class="pre">find_many()</span></tt></a> depending upon the type of
+<dt id="flowthings.service.find">
+<tt class="descclassname">service.</tt><tt class="descname">find</tt><big>(</big><em>...</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>An overloaded method which may call one of <a class="reference internal" href="#flowthings.service.find_by_id" title="flowthings.service.find_by_id"><tt class="xref py py-meth docutils literal"><span class="pre">find_by_id()</span></tt></a>,
+<a class="reference internal" href="#flowthings.service.find_by_ids" title="flowthings.service.find_by_ids"><tt class="xref py py-meth docutils literal"><span class="pre">find_by_ids()</span></tt></a>, or <a class="reference internal" href="#flowthings.service.find_many" title="flowthings.service.find_many"><tt class="xref py py-meth docutils literal"><span class="pre">find_many()</span></tt></a> depending upon the type of
 the first argument.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">([</span><span class="s">&#39;&lt;flow_id_1&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;flow_id_2&#39;</span><span class="p">])</span>
@@ -224,8 +224,8 @@ the first argument.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.create">
-<tt class="descclassname">service.</tt><tt class="descname">create</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.create" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.create">
+<tt class="descclassname">service.</tt><tt class="descname">create</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.create" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -240,13 +240,13 @@ the first argument.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.update">
-<tt class="descclassname">service.</tt><tt class="descname">update</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.update" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.update">
+<tt class="descclassname">service.</tt><tt class="descname">update</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.update" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model</strong> (dict or <a class="reference internal" href="#flow_things.M" title="flow_things.M"><tt class="xref py py-class docutils literal"><span class="pre">M</span></tt></a>) &#8211; Updated model</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model</strong> (dict or <a class="reference internal" href="#flowthings.M" title="flowthings.M"><tt class="xref py py-class docutils literal"><span class="pre">M</span></tt></a>) &#8211; Updated model</td>
 </tr>
 </tbody>
 </table>
@@ -258,8 +258,8 @@ the first argument.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.update_many">
-<tt class="descclassname">service.</tt><tt class="descname">update_many</tt><big>(</big><em>models</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.update_many" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.update_many">
+<tt class="descclassname">service.</tt><tt class="descname">update_many</tt><big>(</big><em>models</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.update_many" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -271,17 +271,17 @@ the first argument.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.save">
-<tt class="descclassname">service.</tt><tt class="descname">save</tt><big>(</big><em>...</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>An overloaded method which may call one of <a class="reference internal" href="#flow_things.service.create" title="flow_things.service.create"><tt class="xref py py-meth docutils literal"><span class="pre">create()</span></tt></a>,
-<a class="reference internal" href="#flow_things.service.update" title="flow_things.service.update"><tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt></a>, or <a class="reference internal" href="#flow_things.service.update_many" title="flow_things.service.update_many"><tt class="xref py py-meth docutils literal"><span class="pre">update_many()</span></tt></a> depending upon the type of the
-first argument. <a class="reference internal" href="#flow_things.service.create" title="flow_things.service.create"><tt class="xref py py-meth docutils literal"><span class="pre">create()</span></tt></a> or <a class="reference internal" href="#flow_things.service.update" title="flow_things.service.update"><tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt></a> are called based on
+<dt id="flowthings.service.save">
+<tt class="descclassname">service.</tt><tt class="descname">save</tt><big>(</big><em>...</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>An overloaded method which may call one of <a class="reference internal" href="#flowthings.service.create" title="flowthings.service.create"><tt class="xref py py-meth docutils literal"><span class="pre">create()</span></tt></a>,
+<a class="reference internal" href="#flowthings.service.update" title="flowthings.service.update"><tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt></a>, or <a class="reference internal" href="#flowthings.service.update_many" title="flowthings.service.update_many"><tt class="xref py py-meth docutils literal"><span class="pre">update_many()</span></tt></a> depending upon the type of the
+first argument. <a class="reference internal" href="#flowthings.service.create" title="flowthings.service.create"><tt class="xref py py-meth docutils literal"><span class="pre">create()</span></tt></a> or <a class="reference internal" href="#flowthings.service.update" title="flowthings.service.update"><tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt></a> are called based on
 the presence of an <tt class="docutils literal"><span class="pre">'id'</span></tt> key.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="flow_things.service.destroy">
-<tt class="descclassname">service.</tt><tt class="descname">destroy</tt><big>(</big><em>id</em>, <em>data=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flow_things.service.destroy" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.destroy">
+<tt class="descclassname">service.</tt><tt class="descname">destroy</tt><big>(</big><em>id</em>, <em>data=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.destroy" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -302,7 +302,7 @@ the presence of an <tt class="docutils literal"><span class="pre">'id'</span></t
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>The <tt class="docutils literal"><span class="pre">drop</span></tt> service is slightly different in that it must first be
-parameterized by the flow id.</p>
+parameterized by the Flow id.</p>
 <div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -324,15 +324,15 @@ type becomes a tuple rather than a single dictionary:</p>
 </div>
 <div class="section" id="request-filters">
 <span id="criteria"></span><h2>Request Filters<a class="headerlink" href="#request-filters" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#flow_things.service.find_many" title="flow_things.service.find_many"><tt class="xref py py-meth docutils literal"><span class="pre">Service</span> <span class="pre">find</span> <span class="pre">methods</span></tt></a> understand a query DSL that
+<p><a class="reference internal" href="#flowthings.service.find_many" title="flowthings.service.find_many"><tt class="xref py py-meth docutils literal"><span class="pre">Service</span> <span class="pre">find</span> <span class="pre">methods</span></tt></a> understand a query DSL that
 lets you express filters using Python operations instead of manually splicing
 strings together.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">mem</span><span class="o">.</span><span class="n">displayName</span> <span class="o">==</span> <span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="n">mem</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">re</span><span class="p">(</span><span class="s">&#39;^/foo&#39;</span><span class="p">,</span> <span class="s">&#39;i&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <dl class="class">
-<dt id="flow_things.mem">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">mem</tt><a class="headerlink" href="#flow_things.mem" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.mem">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">mem</tt><a class="headerlink" href="#flowthings.mem" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>mem</cite> represents members of the objects you are querying. You can use use
 properties or key indexing to represent a member.:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="o">&lt;</span><span class="n">flow_id</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">mem</span><span class="o">.</span><span class="n">elems</span><span class="o">.</span><span class="n">foo</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">)</span>
@@ -341,51 +341,51 @@ properties or key indexing to represent a member.:</p>
 <p>The supported operators are <tt class="docutils literal"><span class="pre">==</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, and <tt class="docutils literal"><span class="pre">&gt;=</span></tt> along
 with the following methods, mirroring the platform:</p>
 <dl class="method">
-<dt id="flow_things.mem.re">
-<tt class="descname">re</tt><big>(</big><em>pattern</em><span class="optional">[</span>, <em>flags</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flow_things.mem.re" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.mem.re">
+<tt class="descname">re</tt><big>(</big><em>pattern</em><span class="optional">[</span>, <em>flags</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flowthings.mem.re" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="flow_things.mem.IN">
-<tt class="descname">IN</tt><big>(</big><em>*items</em><big>)</big><a class="headerlink" href="#flow_things.mem.IN" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.mem.IN">
+<tt class="descname">IN</tt><big>(</big><em>*items</em><big>)</big><a class="headerlink" href="#flowthings.mem.IN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="flow_things.mem.CONTAINS">
-<tt class="descname">CONTAINS</tt><big>(</big><em>*items</em><big>)</big><a class="headerlink" href="#flow_things.mem.CONTAINS" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.mem.CONTAINS">
+<tt class="descname">CONTAINS</tt><big>(</big><em>*items</em><big>)</big><a class="headerlink" href="#flowthings.mem.CONTAINS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="flow_things.mem.WITHIN">
-<tt class="descname">WITHIN</tt><big>(</big><em>distance</em>, <em>unit</em><span class="optional">[</span>, <em>coords=(lat</em>, <em>lon)</em><span class="optional">[</span>, <em>zip=zipcode</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#flow_things.mem.WITHIN" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.mem.WITHIN">
+<tt class="descname">WITHIN</tt><big>(</big><em>distance</em>, <em>unit</em><span class="optional">[</span>, <em>coords=(lat</em>, <em>lon)</em><span class="optional">[</span>, <em>zip=zipcode</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#flowthings.mem.WITHIN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <p>Additional platform filter operations are supported:</p>
 <dl class="function">
-<dt id="flow_things.EXISTS">
-<tt class="descclassname">flow_things.</tt><tt class="descname">EXISTS</tt><big>(</big><em>member</em><big>)</big><a class="headerlink" href="#flow_things.EXISTS" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.EXISTS">
+<tt class="descclassname">flowthings.</tt><tt class="descname">EXISTS</tt><big>(</big><em>member</em><big>)</big><a class="headerlink" href="#flowthings.EXISTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="flow_things.HAS">
-<tt class="descclassname">flow_things.</tt><tt class="descname">HAS</tt><big>(</big><em>elem_type</em><big>)</big><a class="headerlink" href="#flow_things.HAS" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.HAS">
+<tt class="descclassname">flowthings.</tt><tt class="descname">HAS</tt><big>(</big><em>elem_type</em><big>)</big><a class="headerlink" href="#flowthings.HAS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="flow_things.MATCHES">
-<tt class="descclassname">flow_things.</tt><tt class="descname">MATCHES</tt><big>(</big><em>pattern</em><span class="optional">[</span>, <em>flags</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flow_things.MATCHES" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.MATCHES">
+<tt class="descclassname">flowthings.</tt><tt class="descname">MATCHES</tt><big>(</big><em>pattern</em><span class="optional">[</span>, <em>flags</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#flowthings.MATCHES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="flow_things.NOT">
-<tt class="descclassname">flow_things.</tt><tt class="descname">NOT</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#flow_things.NOT" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.NOT">
+<tt class="descclassname">flowthings.</tt><tt class="descname">NOT</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#flowthings.NOT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="data">
-<dt id="flow_things.AGE">
-<tt class="descclassname">flow_things.</tt><tt class="descname">AGE</tt><a class="headerlink" href="#flow_things.AGE" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.AGE">
+<tt class="descclassname">flowthings.</tt><tt class="descname">AGE</tt><a class="headerlink" href="#flowthings.AGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Age comparisons can be made using normal python operators with <tt class="docutils literal"><span class="pre">AGE</span></tt>.:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">AGE</span> <span class="o">&gt;</span> <span class="n">time_millis</span><span class="p">)</span>
 </pre></div>
@@ -399,23 +399,23 @@ with the following methods, mirroring the platform:</p>
 </div>
 <div class="section" id="modifications">
 <span id="id1"></span><h2>Modifications<a class="headerlink" href="#modifications" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#flow_things.service.update" title="flow_things.service.update"><tt class="xref py py-meth docutils literal"><span class="pre">Service</span> <span class="pre">update</span> <span class="pre">methods</span></tt></a> can also take an instance
-of a modification helper called <a class="reference internal" href="#flow_things.M" title="flow_things.M"><tt class="xref py py-class docutils literal"><span class="pre">M</span></tt></a>. It lets you gradually make
+<p><a class="reference internal" href="#flowthings.service.update" title="flowthings.service.update"><tt class="xref py py-meth docutils literal"><span class="pre">Service</span> <span class="pre">update</span> <span class="pre">methods</span></tt></a> can also take an instance
+of a modification helper called <a class="reference internal" href="#flowthings.M" title="flowthings.M"><tt class="xref py py-class docutils literal"><span class="pre">M</span></tt></a>. It lets you gradually make
 updates to a model and then extract the diff and model with the changes
 applied.</p>
 <p>When passed directly to an update method, only the changes will be sent to the
 server instead of the entire model.</p>
 <dl class="class">
-<dt id="flow_things.M">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">M</tt><big>(</big><em>model</em>, <em>**changes</em><big>)</big><a class="headerlink" href="#flow_things.M" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.M">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">M</tt><big>(</big><em>model</em>, <em>**changes</em><big>)</big><a class="headerlink" href="#flowthings.M" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="flow_things.M.modify">
-<tt class="descname">modify</tt><big>(</big><em>key</em>, <em>val</em><big>)</big><a class="headerlink" href="#flow_things.M.modify" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.M.modify">
+<tt class="descname">modify</tt><big>(</big><em>key</em>, <em>val</em><big>)</big><a class="headerlink" href="#flowthings.M.modify" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="flow_things.M.done">
-<tt class="descname">done</tt><big>(</big><big>)</big><a class="headerlink" href="#flow_things.M.done" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.M.done">
+<tt class="descname">done</tt><big>(</big><big>)</big><a class="headerlink" href="#flowthings.M.done" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a tuple of <tt class="docutils literal"><span class="pre">(new_model,</span> <span class="pre">diff)</span></tt>.</p>
 </dd></dl>
 
@@ -425,72 +425,72 @@ server instead of the entire model.</p>
 <div class="section" id="exceptions">
 <span id="id2"></span><h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="flow_things.FlowPlatError">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">FlowPlatError</tt><a class="headerlink" href="#flow_things.FlowPlatError" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsError">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">FlowThingsError</tt><a class="headerlink" href="#flowthings.FlowThingsError" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
-<dt id="flow_things.FlowPlatException">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">FlowPlatException</tt><a class="headerlink" href="#flow_things.FlowPlatException" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsException">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">FlowThingsException</tt><a class="headerlink" href="#flowthings.FlowThingsException" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
-<dt id="flow_things.FlowPlatException.errors">
-<tt class="descname">errors</tt><a class="headerlink" href="#flow_things.FlowPlatException.errors" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsException.errors">
+<tt class="descname">errors</tt><a class="headerlink" href="#flowthings.FlowThingsException.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of errors returned from the platform</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="flow_things.FlowPlatException.creds">
-<tt class="descname">creds</tt><a class="headerlink" href="#flow_things.FlowPlatException.creds" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsException.creds">
+<tt class="descname">creds</tt><a class="headerlink" href="#flowthings.FlowThingsException.creds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request credentials</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="flow_things.FlowPlatException.method">
-<tt class="descname">method</tt><a class="headerlink" href="#flow_things.FlowPlatException.method" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsException.method">
+<tt class="descname">method</tt><a class="headerlink" href="#flowthings.FlowThingsException.method" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request HTTP method</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="flow_things.FlowPlatException.path">
-<tt class="descname">path</tt><a class="headerlink" href="#flow_things.FlowPlatException.path" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsException.path">
+<tt class="descname">path</tt><a class="headerlink" href="#flowthings.FlowThingsException.path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request path</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="flow_things.FlowPlatBadRequest">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">FlowPlatBadRequest</tt><a class="headerlink" href="#flow_things.FlowPlatBadRequest" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsBadRequest">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">FlowThingsBadRequest</tt><a class="headerlink" href="#flowthings.FlowThingsBadRequest" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
-<dt id="flow_things.FlowPlatForbidden">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">FlowPlatForbidden</tt><a class="headerlink" href="#flow_things.FlowPlatForbidden" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsForbidden">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">FlowThingsForbidden</tt><a class="headerlink" href="#flowthings.FlowThingsForbidden" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
-<dt id="flow_things.FlowPlatNotFound">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">FlowPlatNotFound</tt><a class="headerlink" href="#flow_things.FlowPlatNotFound" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsNotFound">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">FlowThingsNotFound</tt><a class="headerlink" href="#flowthings.FlowThingsNotFound" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
-<dt id="flow_things.FlowPlatServerError">
-<em class="property">class </em><tt class="descclassname">flow_things.</tt><tt class="descname">FlowPlatServerError</tt><a class="headerlink" href="#flow_things.FlowPlatServerError" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.FlowThingsServerError">
+<em class="property">class </em><tt class="descclassname">flowthings.</tt><tt class="descname">FlowThingsServerError</tt><a class="headerlink" href="#flowthings.FlowThingsServerError" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="section" id="authentication">
 <span id="id3"></span><h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
-<p>If you create your <a class="reference internal" href="#flow_things.API" title="flow_things.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> using a master token, you can create and
+<p>If you create your <a class="reference internal" href="#flowthings.API" title="flowthings.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> using a master token, you can create and
 manage tokens and shares.</p>
 <dl class="function">
-<dt id="flow_things.api.token.create">
-<tt class="descclassname">api.token.</tt><tt class="descname">create</tt><big>(</big><em>paths</em>, <em>expires_in_ms=0</em>, <em>description=None</em><big>)</big><a class="headerlink" href="#flow_things.api.token.create" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.api.token.create">
+<tt class="descclassname">api.token.</tt><tt class="descname">create</tt><big>(</big><em>paths</em>, <em>expires_in_ms=0</em>, <em>description=None</em><big>)</big><a class="headerlink" href="#flowthings.api.token.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="flow_things.api.share.create">
-<tt class="descclassname">api.share.</tt><tt class="descname">create</tt><big>(</big><em>issued_to</em>, <em>paths</em>, <em>expires_in_ms=0</em>, <em>description=None</em><big>)</big><a class="headerlink" href="#flow_things.api.share.create" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.api.share.create">
+<tt class="descclassname">api.share.</tt><tt class="descname">create</tt><big>(</big><em>issued_to</em>, <em>paths</em>, <em>expires_in_ms=0</em>, <em>description=None</em><big>)</big><a class="headerlink" href="#flowthings.api.share.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p>Both tokens and shares support <tt class="docutils literal"><span class="pre">find</span></tt> and <tt class="docutils literal"><span class="pre">delete</span></tt> methods like other
@@ -499,7 +499,7 @@ services.  They are, however, immutable and do not support updates.</p>
 <div class="section" id="asynchronous-and-parallel-requests">
 <span id="async-and-parallel"></span><h2>Asynchronous and Parallel Requests<a class="headerlink" href="#asynchronous-and-parallel-requests" title="Permalink to this headline">¶</a></h2>
 <p>Two workflows are supported for making asynchronous and parallel requests.</p>
-<p>The <a class="reference internal" href="#flow_things.API.async" title="flow_things.API.async"><tt class="xref py py-meth docutils literal"><span class="pre">API.async()</span></tt></a> workflow is an imperative API where requests are
+<p>The <a class="reference internal" href="#flowthings.API.async" title="flowthings.API.async"><tt class="xref py py-meth docutils literal"><span class="pre">API.async()</span></tt></a> workflow is an imperative API where requests are
 queued internally. Once you&#8217;ve made all the requests you need, you can invoke
 the <tt class="docutils literal"><span class="pre">results()</span></tt> method to wait. This can be useful when making large batches
 of similar requests:</p>
@@ -531,7 +531,7 @@ set the <tt class="docutils literal"><span class="pre">with_exceptions</span></t
         <span class="k">pass</span>
 </pre></div>
 </div>
-<p>The <a class="reference internal" href="#flow_things.API.lazy" title="flow_things.API.lazy"><tt class="xref py py-meth docutils literal"><span class="pre">API.lazy()</span></tt></a> worklow is useful when building complex compositions of
+<p>The <a class="reference internal" href="#flowthings.API.lazy" title="flowthings.API.lazy"><tt class="xref py py-meth docutils literal"><span class="pre">API.lazy()</span></tt></a> worklow is useful when building complex compositions of
 dependent requests which can benefit from implicit parallelization. All
 requests are executed in parallel, but wait when you try to read the data. This
 works by requests returning a <tt class="docutils literal"><span class="pre">GreenThunk</span></tt>, which is a <tt class="docutils literal"><span class="pre">MutableMapping</span></tt>
@@ -543,14 +543,14 @@ but waits on the green thread before performing any look-ups or mutations.</p>
 <span class="n">drops</span>  <span class="o">=</span> <span class="n">lazy_api</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">flow_a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;id&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In this example, the two requests for flows are performed in parallel, while
+<p>In this example, the two requests for Flows are performed in parallel, while
 the requests for drops waits for the <tt class="docutils literal"><span class="pre">flow_a</span></tt> request to complete first.</p>
 <p>You can retrieve the pure data of a <tt class="docutils literal"><span class="pre">GreenThunk</span></tt> by invoking its <tt class="docutils literal"><span class="pre">unwrap()</span></tt>
 method.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">It is assumed the user has done the necessary green thread monkey-patching
-for their chosen library before importing the <tt class="docutils literal"><span class="pre">flow</span></tt> package.</p>
+for their chosen library before importing the <tt class="docutils literal"><span class="pre">flowthings</span></tt> package.</p>
 </div>
 </div>
 <div class="section" id="websockets">
@@ -587,7 +587,7 @@ short example:</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">flow-things</a><ul>
+<li><a class="reference internal" href="#">flowthings</a><ul>
 <li><a class="reference internal" href="#service-methods">Service Methods</a></li>
 <li><a class="reference internal" href="#request-parameters">Request Parameters</a></li>
 <li><a class="reference internal" href="#request-filters">Request Filters</a></li>

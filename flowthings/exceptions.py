@@ -1,8 +1,8 @@
-class FlowPlatError(Exception):
+class FlowThingsError(Exception):
     pass
 
 
-class FlowPlatException(Exception):
+class FlowThingsException(Exception):
     def __init__(self, errors=[], creds=None, method=None, path=None):
         self.errors = errors
         self.creds = creds
@@ -19,17 +19,17 @@ class FlowPlatException(Exception):
         return '<%s %s>' % (self.__class__.__name__, ' '.join(parts))
 
 
-class FlowPlatBadRequest(FlowPlatException):
+class FlowThingsBadRequest(FlowThingsException):
     pass
 
 
-class FlowPlatForbidden(FlowPlatException):
+class FlowThingsForbidden(FlowThingsException):
     pass
 
 
-class FlowPlatNotFound(FlowPlatException):
+class FlowThingsNotFound(FlowThingsException):
     pass
 
 
-class FlowPlatServerError(FlowPlatException):
+class FlowThingsServerError(FlowThingsException):
     pass

@@ -1,8 +1,8 @@
-===========
-flow-things
-===========
+==========
+flowthings
+==========
 
-.. py:module:: flow_things
+.. py:module:: flowthings
 
 .. py:class:: Token(account, token)
 
@@ -70,7 +70,7 @@ flow-things
 
          import eventlet
 
-         flow.defaults.async_lib = eventlet
+         flowthings.defaults.async_lib = eventlet
 
    .. py:attribute:: defaults.secure
 
@@ -94,7 +94,7 @@ body. They may throw :ref:`exceptions <exceptions>` in case of an error.
 
    :param str id: The resource id
 
-   >>> api.flow.find('<flow_id>')
+   >>> api.flow.find_by_id('<flow_id>')
 
 .. py:method:: service.find_or_else(id, default=None, **params)
 
@@ -162,7 +162,7 @@ body. They may throw :ref:`exceptions <exceptions>` in case of an error.
 .. note::
 
    The ``drop`` service is slightly different in that it must first be
-   parameterized by the flow id.
+   parameterized by the Flow id.
 
    >>> api.drop('<flow_id>').find(limit=10)
 
@@ -257,9 +257,9 @@ server instead of the entire model.
 Exceptions
 ----------
 
-.. py:class:: FlowPlatError
+.. py:class:: FlowThingsError
 
-.. py:class:: FlowPlatException
+.. py:class:: FlowThingsException
 
    .. py:attribute:: errors
 
@@ -277,13 +277,13 @@ Exceptions
 
       Request path
 
-.. py:class:: FlowPlatBadRequest
+.. py:class:: FlowThingsBadRequest
 
-.. py:class:: FlowPlatForbidden
+.. py:class:: FlowThingsForbidden
 
-.. py:class:: FlowPlatNotFound
+.. py:class:: FlowThingsNotFound
 
-.. py:class:: FlowPlatServerError
+.. py:class:: FlowThingsServerError
 
 .. _authentication:
 
@@ -356,7 +356,7 @@ but waits on the green thread before performing any look-ups or mutations. ::
     flow_b = lazy_api.flow.find(mem.path == '/path/to/flow_b')
     drops  = lazy_api.drop(flow_a[0]['id']).find(limit=10)
 
-In this example, the two requests for flows are performed in parallel, while
+In this example, the two requests for Flows are performed in parallel, while
 the requests for drops waits for the ``flow_a`` request to complete first.
 
 You can retrieve the pure data of a ``GreenThunk`` by invoking its ``unwrap()``
@@ -365,7 +365,7 @@ method.
 .. note::
 
    It is assumed the user has done the necessary green thread monkey-patching
-   for their chosen library before importing the ``flow`` package.
+   for their chosen library before importing the ``flowthings`` package.
 
 .. _websockets:
 

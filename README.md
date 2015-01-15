@@ -2,11 +2,11 @@ flowthings-python-client
 ==================
 
 ```sh
-pip install flow-things
+pip install flowthings
 ```
 
 ```py
-from flow_things import API, Token, mem
+from flowthings import API, Token, mem
 
 creds = Token(ACCOUNT, TOKEN)
 api = API(creds)
