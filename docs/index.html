@@ -485,15 +485,15 @@ server instead of the entire model.</p>
 manage tokens and shares.</p>
 <dl class="function">
 <dt id="flowthings.api.token.create">
-<tt class="descclassname">api.token.</tt><tt class="descname">create</tt><big>(</big><em>paths</em>, <em>expires_in_ms=0</em>, <em>description=None</em><big>)</big><a class="headerlink" href="#flowthings.api.token.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">api.token.</tt><tt class="descname">create</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.api.token.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="flowthings.api.share.create">
-<tt class="descclassname">api.share.</tt><tt class="descname">create</tt><big>(</big><em>issued_to</em>, <em>paths</em>, <em>expires_in_ms=0</em>, <em>description=None</em><big>)</big><a class="headerlink" href="#flowthings.api.share.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">api.share.</tt><tt class="descname">create</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.api.share.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>Both tokens and shares support <tt class="docutils literal"><span class="pre">find</span></tt> and <tt class="docutils literal"><span class="pre">delete</span></tt> methods like other
+<p>Both tokens and shares support <tt class="docutils literal"><span class="pre">find</span></tt> and <tt class="docutils literal"><span class="pre">destroy</span></tt> methods like other
 services.  They are, however, immutable and do not support updates.</p>
 </div>
 <div class="section" id="asynchronous-and-parallel-requests">

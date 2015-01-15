@@ -276,7 +276,11 @@ class RequestTestCase(TestCase):
 
     def test_token_create(self):
         api  = TestAPI()
-        resp = api.token.create({ '/foo': { 'administer': True }}, 42, 'Test')
+        resp = api.token.create({
+            'paths': { '/foo': { 'administer': True }},
+            'expiresInMs': 42,
+            'description': 'Test',
+        })
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/token',
             'method': 'POST',
@@ -291,7 +295,12 @@ class RequestTestCase(TestCase):
 
     def test_share_create(self):
         api  = TestAPI()
-        resp = api.share.create('bar', { '/foo': { 'administer': True }}, 42, 'Test')
+        resp = api.share.create({
+            'issuedTo': 'bar',
+            'paths': { '/foo': { 'administer': True }},
+            'expiresInMs': 42,
+            'description': 'Test',
+        })
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/share',
             'method': 'POST',

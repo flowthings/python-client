@@ -241,31 +241,15 @@ class DropServiceFactory(AbstractServiceFactory):
 class TokenService(BaseService, FindableServiceMixin, DestroyableServiceMixin):
     path = '/token'
 
-    def create(self, paths, expires_in_ms=None, description=None):
-        data = { 'paths': paths }
-
-        if expires_in_ms is not None:
-            data['expiresInMs'] = expires_in_ms
-
-        if description is not None:
-            data['description'] = description
-
-        return self.request('POST', '', data)
+    def create(self, model, **kwargs):
+        return self.request('POST', data=model, params=P(**kwargs)) 
 
 
 class ShareService(BaseService, FindableServiceMixin, DestroyableServiceMixin):
     path = '/share'
 
-    def create(self, issued_to, paths, expires_in_ms=None, description=None):
-        data = { 'issuedTo': issued_to, 'paths': paths }
-
-        if expires_in_ms is not None:
-            data['expiresInMs'] = expires_in_ms
-
-        if description is not None:
-            data['description'] = description
-
-        return self.request('POST', '', data)
+    def create(self, model, **kwargs):
+        return self.request('POST', data=model, params=P(**kwargs)) 
 
 
 class WebSocketService(BaseService):

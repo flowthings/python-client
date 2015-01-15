@@ -293,16 +293,11 @@ Authentication
 If you create your :py:class:`API` using a master token, you can create and
 manage tokens and shares.
 
-.. py:function:: api.token.create(paths, \
-                                  expires_in_ms=0, \
-                                  description=None)
+.. py:function:: api.token.create(model, **params)
 
-.. py:function:: api.share.create(issued_to, \
-                                  paths, \
-                                  expires_in_ms=0, \
-                                  description=None)
+.. py:function:: api.share.create(model, **params)
 
-Both tokens and shares support ``find`` and ``delete`` methods like other
+Both tokens and shares support ``find`` and ``destroy`` methods like other
 services.  They are, however, immutable and do not support updates.
 
 .. _async-and-parallel:
