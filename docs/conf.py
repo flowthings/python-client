@@ -1,2 +1,2 @@
 master_doc = 'index'
-copyright = '2014 Flow, Corp'
+copyright = '2015 Flow Search, Corp'
