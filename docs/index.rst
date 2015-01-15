@@ -90,24 +90,24 @@ Service Methods
 All :py:class:`API` service requests return plain dictionaries of the request
 body. They may throw :ref:`exceptions <exceptions>` in case of an error.
 
-.. py:method:: service.find_by_id(id, **params)
+.. py:method:: service.read(id, **params)
 
    :param str id: The resource id
 
-   >>> api.flow.find_by_id('<flow_id>')
+   >>> api.flow.read('<flow_id>')
 
-.. py:method:: service.find_or_else(id, default=None, **params)
+.. py:method:: service.read_or_else(id, default=None, **params)
 
    :param str id: The resource id
    :param any default: Default value when the resource is not found
 
-   >>> api.flow.find_or_else('<flow_id>', None)
+   >>> api.flow.read_or_else('<flow_id>', None)
 
-.. py:method:: service.find_by_ids(ids, **params)
+.. py:method:: service.read_many(ids, **params)
 
    :param list ids: List of resource ids
 
-   >>> api.flow.find_by_ids(['<flow_id_1>', '<flow_id_2'])
+   >>> api.flow.read_many(['<flow_id_1>', '<flow_id_2'])
 
 .. py:method:: service.find_many(*filters, **params)
 
@@ -117,8 +117,8 @@ body. They may throw :ref:`exceptions <exceptions>` in case of an error.
 
 .. py:method:: service.find(..., **params)
 
-   An overloaded method which may call one of :py:meth:`find_by_id`,
-   :py:meth:`find_by_ids`, or :py:meth:`find_many` depending upon the type of
+   An overloaded method which may call one of :py:meth:`read`,
+   :py:meth:`read_many`, or :py:meth:`find_many` depending upon the type of
    the first argument.
 
    >>> api.flow.find('<flow_id>')
@@ -152,12 +152,12 @@ body. They may throw :ref:`exceptions <exceptions>` in case of an error.
    first argument. :py:meth:`create` or :py:meth:`update` are called based on
    the presence of an ``'id'`` key.
 
-.. py:method:: service.destroy(id, data=None, **params)
+.. py:method:: service.delete(id, data=None, **params)
   
-   :param str id: The resource to destroy
+   :param str id: The resource to delete
    :param any data: Request data
 
-   >>> api.flow.destroy('<flow_id>')
+   >>> api.flow.delete('<flow_id>')
 
 .. note::
 
@@ -297,7 +297,7 @@ manage tokens and shares.
 
 .. py:function:: api.share.create(model, **params)
 
-Both tokens and shares support ``find`` and ``destroy`` methods like other
+Both tokens and shares support ``find`` and ``delete`` methods like other
 services.  They are, however, immutable and do not support updates.
 
 .. _async-and-parallel:

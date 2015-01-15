@@ -86,22 +86,22 @@ class BaseService(object):
 
 
 class FindableServiceMixin(object):
-    """ A mixin to support various `find*` methods. """
+    """ A mixin to support various retrieval methods. """
 
-    def find_by_id(self, id, **kwargs):
+    def read(self, id, **kwargs):
         return self.request('GET', '/' + id, params=P(**kwargs))
 
-    def find_or_else(self, id, default=None, **kwargs):
+    def read_or_else(self, id, default=None, **kwargs):
         """ Supply a default value instead of throwing a FlowThingsNotFound
         exception. Note, that this does not silence other exceptions, only
         404s from the platform. """
 
         try:
-            return self.find_by_id(id, **kwargs)
+            return self.read(id, **kwargs)
         except FlowThingsNotFound:
             return default
 
-    def find_by_ids(self, ids, **kwargs):
+    def read_many(self, ids, **kwargs):
         """ Make an MGET query to the platform to return multiple resources
         at the same time. This returns a map of id -> resource. """
 
@@ -128,9 +128,9 @@ class FindableServiceMixin(object):
             first = None
 
         if isinstance(first, (str, unicode)):
-            return self.find_by_id(first, *tail, **kwargs)
+            return self.read(first, *tail, **kwargs)
         if isinstance(first, list):
-            return self.find_by_ids(first, *tail, **kwargs)
+            return self.read_many(first, *tail, **kwargs)
         return self.find_many(*args, **kwargs)
 
     
@@ -179,7 +179,7 @@ class SaveableServiceMixin(object):
 class DestroyableServiceMixin(object):
     """ A mixin to support deletion. """
 
-    def destroy(self, id, data=None, **kwargs):
+    def delete(self, id, data=None, **kwargs):
         return self.request('DELETE', '/' + id, data=data, params=P(**kwargs))
         
 

@@ -143,8 +143,8 @@ Defaults to <tt class="docutils literal"><span class="pre">{}</span></tt>.</p>
 <p>All <a class="reference internal" href="#flowthings.API" title="flowthings.API"><tt class="xref py py-class docutils literal"><span class="pre">API</span></tt></a> service requests return plain dictionaries of the request
 body. They may throw <a class="reference internal" href="#exceptions"><em>exceptions</em></a> in case of an error.</p>
 <dl class="method">
-<dt id="flowthings.service.find_by_id">
-<tt class="descclassname">service.</tt><tt class="descname">find_by_id</tt><big>(</big><em>id</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_by_id" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.read">
+<tt class="descclassname">service.</tt><tt class="descname">read</tt><big>(</big><em>id</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.read" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -153,14 +153,14 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="flowthings.service.find_or_else">
-<tt class="descclassname">service.</tt><tt class="descname">find_or_else</tt><big>(</big><em>id</em>, <em>default=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_or_else" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.read_or_else">
+<tt class="descclassname">service.</tt><tt class="descname">read_or_else</tt><big>(</big><em>id</em>, <em>default=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.read_or_else" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -173,14 +173,14 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find_or_else</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">read_or_else</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="flowthings.service.find_by_ids">
-<tt class="descclassname">service.</tt><tt class="descname">find_by_ids</tt><big>(</big><em>ids</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find_by_ids" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.read_many">
+<tt class="descclassname">service.</tt><tt class="descname">read_many</tt><big>(</big><em>ids</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.read_many" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -189,7 +189,7 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find_by_ids</span><span class="p">([</span><span class="s">&#39;&lt;flow_id_1&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;flow_id_2&#39;</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">read_many</span><span class="p">([</span><span class="s">&#39;&lt;flow_id_1&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;flow_id_2&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -213,8 +213,8 @@ body. They may throw <a class="reference internal" href="#exceptions"><em>except
 <dl class="method">
 <dt id="flowthings.service.find">
 <tt class="descclassname">service.</tt><tt class="descname">find</tt><big>(</big><em>...</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>An overloaded method which may call one of <a class="reference internal" href="#flowthings.service.find_by_id" title="flowthings.service.find_by_id"><tt class="xref py py-meth docutils literal"><span class="pre">find_by_id()</span></tt></a>,
-<a class="reference internal" href="#flowthings.service.find_by_ids" title="flowthings.service.find_by_ids"><tt class="xref py py-meth docutils literal"><span class="pre">find_by_ids()</span></tt></a>, or <a class="reference internal" href="#flowthings.service.find_many" title="flowthings.service.find_many"><tt class="xref py py-meth docutils literal"><span class="pre">find_many()</span></tt></a> depending upon the type of
+<dd><p>An overloaded method which may call one of <a class="reference internal" href="#flowthings.service.read" title="flowthings.service.read"><tt class="xref py py-meth docutils literal"><span class="pre">read()</span></tt></a>,
+<a class="reference internal" href="#flowthings.service.read_many" title="flowthings.service.read_many"><tt class="xref py py-meth docutils literal"><span class="pre">read_many()</span></tt></a>, or <a class="reference internal" href="#flowthings.service.find_many" title="flowthings.service.find_many"><tt class="xref py py-meth docutils literal"><span class="pre">find_many()</span></tt></a> depending upon the type of
 the first argument.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">find</span><span class="p">([</span><span class="s">&#39;&lt;flow_id_1&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;flow_id_2&#39;</span><span class="p">])</span>
@@ -280,21 +280,21 @@ the presence of an <tt class="docutils literal"><span class="pre">'id'</span></t
 </dd></dl>
 
 <dl class="method">
-<dt id="flowthings.service.destroy">
-<tt class="descclassname">service.</tt><tt class="descname">destroy</tt><big>(</big><em>id</em>, <em>data=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.destroy" title="Permalink to this definition">¶</a></dt>
+<dt id="flowthings.service.delete">
+<tt class="descclassname">service.</tt><tt class="descname">delete</tt><big>(</big><em>id</em>, <em>data=None</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.service.delete" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<em>str</em>) &#8211; The resource to destroy</li>
+<li><strong>id</strong> (<em>str</em>) &#8211; The resource to delete</li>
 <li><strong>data</strong> (<em>any</em>) &#8211; Request data</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">&#39;&lt;flow_id&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -493,7 +493,7 @@ manage tokens and shares.</p>
 <tt class="descclassname">api.share.</tt><tt class="descname">create</tt><big>(</big><em>model</em>, <em>**params</em><big>)</big><a class="headerlink" href="#flowthings.api.share.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<p>Both tokens and shares support <tt class="docutils literal"><span class="pre">find</span></tt> and <tt class="docutils literal"><span class="pre">destroy</span></tt> methods like other
+<p>Both tokens and shares support <tt class="docutils literal"><span class="pre">find</span></tt> and <tt class="docutils literal"><span class="pre">delete</span></tt> methods like other
 services.  They are, however, immutable and do not support updates.</p>
 </div>
 <div class="section" id="asynchronous-and-parallel-requests">

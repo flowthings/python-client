@@ -69,9 +69,9 @@ class RequestTestCase(TestCase):
             'creds': CREDS,
         })
 
-    def test_find_by_id(self):
+    def test_read(self):
         api  = TestAPI()
-        resp = api.flow.find_by_id('foo')
+        resp = api.flow.read('foo')
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/flow/foo',
             'method': 'GET',
@@ -80,9 +80,9 @@ class RequestTestCase(TestCase):
             'creds': CREDS,
         })
 
-    def test_find_by_ids(self):
+    def test_read_many(self):
         api  = TestAPI()
-        resp = api.flow.find_by_ids(['foo', 'bar'])
+        resp = api.flow.read_many(['foo', 'bar'])
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/flow',
             'method': 'MGET',
@@ -102,9 +102,9 @@ class RequestTestCase(TestCase):
             'creds': CREDS,
         })
     
-    def test_find_or_else(self):
+    def test_read_or_else(self):
         api  = TestAPI()
-        resp = api.flow.find_or_else('foo', 'bar')
+        resp = api.flow.read_or_else('foo', 'bar')
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/flow/foo',
             'method': 'GET',
@@ -114,7 +114,7 @@ class RequestTestCase(TestCase):
         })
 
         api  = TestAPI(request=mock_api_request_not_found)
-        resp = api.flow.find_or_else('foo', 'bar')
+        resp = api.flow.read_or_else('foo', 'bar')
         self.assertEqual(resp, 'bar')
 
     def test_find(self):
@@ -263,9 +263,9 @@ class RequestTestCase(TestCase):
             'creds': CREDS,
         })
 
-    def test_destroy(self):
+    def test_delete(self):
         api  = TestAPI()
-        resp = api.flow.destroy('foo')
+        resp = api.flow.delete('foo')
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/flow/foo',
             'method': 'DELETE',
