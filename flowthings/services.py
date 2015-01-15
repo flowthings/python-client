@@ -12,6 +12,8 @@ __all__ = (
     'IdentityService',
     'GroupService',
     'TrackService',
+    'APITaskService',
+    'MQTTTaskService',
     'FlowService',
     'DropServiceFactory',
     'TokenService',
@@ -222,6 +224,14 @@ class GroupService(BaseService, FullServiceMixin):
 
 class TrackService(BaseService, FullServiceMixin):
     path = '/track'
+
+
+class APITaskService(BaseService, FullServiceMixin):
+    path = '/api-task'
+
+
+class MQTTTaskService(BaseService, FullServiceMixin):
+    path = '/mqtt-task'
 
 
 class FlowService(BaseService, FullServiceMixin):

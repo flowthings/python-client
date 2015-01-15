@@ -14,6 +14,8 @@ DEFAULT_SERVICES = {
     'group'     : services.GroupService,
     'track'     : services.TrackService,
     'flow'      : services.FlowService,
+    'api_task'  : services.APITaskService,
+    'mqtt_task' : services.MQTTTaskService,
     'drop'      : services.DropServiceFactory,
     'token'     : services.TokenService,
     'share'     : services.ShareService,

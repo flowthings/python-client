@@ -31,6 +31,8 @@ flowthings
    * ``track``
    * ``group``
    * ``identity``
+   * ``api_task``
+   * ``mqtt_task``
    * ``token``
    * ``share``
    * ``websocket``
