@@ -1,10 +1,28 @@
 flowthings-python-client
 ==================
 
+A client libary for [flowthings.io](http://flowthings.io) written in Python.
+
+## Install
+
 ```sh
 pip install flowthings
 ```
 
+## Docs
+```sh
+pip install sphinx
+cd docs
+sphinx-build -b html . .
+```
+
+## Other Resources
+* See the [10 Minute Chat Example](https://github.com/flowthings/python-chat-example) project on GitHub
+* View the main [Developer Docs](https://flowthings.io/docs/index) for details on the core platform
+* See below for example calls:
+
+
+## Example API Usage:
 ```py
 from flowthings import API, Token, mem
 
