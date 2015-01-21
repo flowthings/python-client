@@ -389,3 +389,36 @@ short example::
                                on_close=on_close,
                                on_error=on_error)
     ws.run()
+
+.. _examples:
+
+Examples
+--------
+
+::
+
+    from flowthings import API, Token, mem
+
+    creds = Token('<account_name>', '<token_string>')
+    api = API(creds)
+
+    # Get a Flow by id
+    api.flow.find('<flow_id>')
+
+    # Get a Flow by path
+    api.flow.find(mem.path == '<flow_path>')
+
+    # Get 10 recent Flows, with references
+    flows, refs = api.flow.find(limit=10, refs=True)
+
+    # Create a flow
+    api.flow.create({ 'path': '<flow_path' })
+
+    # Delete a flow
+    api.flow.delete('<flow_id>')
+
+    # Get drops in a flow
+    api.drop('<flow_id>').find()
+
+    # Filter drops in a flow
+    api.drop('<flow_id>').find(mem.elems.foo == 'value')
