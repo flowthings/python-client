@@ -231,7 +231,7 @@ class APITaskService(BaseService, FullServiceMixin):
 
 
 class MQTTTaskService(BaseService, FullServiceMixin):
-    path = '/mqtt-task'
+    path = '/mqtt'
 
 
 class FlowService(BaseService, FullServiceMixin):
