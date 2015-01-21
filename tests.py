@@ -278,7 +278,7 @@ class RequestTestCase(TestCase):
         api  = TestAPI()
         resp = api.token.create({
             'paths': { '/foo': { 'administer': True }},
-            'expiresInMs': 42,
+            'duration': 42,
             'description': 'Test',
         })
         self.assertEqual(resp, {
@@ -287,7 +287,7 @@ class RequestTestCase(TestCase):
             'params': {},
             'data': {
               'paths': { '/foo': { 'administer': True }},
-              'expiresInMs': 42,
+              'duration': 42,
               'description': 'Test',
             },
             'creds': CREDS,
@@ -298,7 +298,7 @@ class RequestTestCase(TestCase):
         resp = api.share.create({
             'issuedTo': 'bar',
             'paths': { '/foo': { 'administer': True }},
-            'expiresInMs': 42,
+            'duration': 42,
             'description': 'Test',
         })
         self.assertEqual(resp, {
@@ -308,7 +308,7 @@ class RequestTestCase(TestCase):
             'data': {
               'issuedTo': 'bar',
               'paths': { '/foo': { 'administer': True }},
-              'expiresInMs': 42,
+              'duration': 42,
               'description': 'Test',
             },
             'creds': CREDS,
