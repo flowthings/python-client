@@ -47,6 +47,9 @@ def TestAPI(*args, **kwargs):
     if 'host' not in kwargs:
         kwargs['host'] = 'test'
 
+    if 'ws_host' not in kwargs:
+        kwargs['ws_host'] = 'ws.test'
+
     if 'version' not in kwargs:
         kwargs['version'] = 'test'
 
@@ -311,6 +314,17 @@ class RequestTestCase(TestCase):
               'duration': 42,
               'description': 'Test',
             },
+            'creds': CREDS,
+        })
+
+    def test_ws_session_create(self):
+        api  = TestAPI()
+        resp = api.websocket.request('POST')
+        self.assertEqual(resp, {
+            'url': 'https://ws.test/session',
+            'method': 'POST',
+            'params': {},
+            'data': None,
             'creds': CREDS,
         })
 

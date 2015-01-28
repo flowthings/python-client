@@ -279,7 +279,7 @@ class WebSocketService(BaseService):
         return WebSocketClient(ws_url, self._encoder, **kwargs)
 
     def _mk_url(self, path):
-        return '%s://%s/%s%s' % (
+        return '%s://%s%s%s' % (
             'https' if self._secure else 'http',
             self._host,
             self.path,
