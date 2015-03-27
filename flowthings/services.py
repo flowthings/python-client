@@ -54,7 +54,7 @@ class BaseService(object):
                 return (res['body'], res['head']['references'])
             return res['body']
 
-        raise plat_exception(res, status, creds=self.creds, method=method, 
+        raise plat_exception(res, status, creds=self.creds, method=method,
                              path=self.path + path)
 
     def raw_request(self, method, path='', data=None, params=None):
@@ -64,7 +64,7 @@ class BaseService(object):
         url = self._mk_url(path)
         return self._request(method, url, data=data, params=params,
                              creds=self.creds)
-        
+
 
     def _mk_url(self, path):
         return '%s://%s/v%s/%s%s%s' % (
@@ -72,7 +72,7 @@ class BaseService(object):
             self._host,
             self._version,
             self.creds.account,
-            self.path, 
+            self.path,
             path)
 
     def _mk_data(self, data):
@@ -135,12 +135,12 @@ class FindableServiceMixin(object):
             return self.read_many(first, *tail, **kwargs)
         return self.find_many(*args, **kwargs)
 
-    
+
 class SaveableServiceMixin(object):
     """ A mixin to support saving and updating. """
 
     def create(self, model, **kwargs):
-        return self.request('POST', data=model, params=P(**kwargs)) 
+        return self.request('POST', data=model, params=P(**kwargs))
 
     def update(self, model, **kwargs):
         """ If the provided model is an instance of `Modify|M` it will pull
@@ -170,7 +170,7 @@ class SaveableServiceMixin(object):
     def save(self, model, *args, **kwargs):
         """ Overloaded persistance method that intuitively calls the correct
         method my inspecting the type and structure of the first argument. """
-        
+
         if isinstance(model, list):
             return self.update_many(model, *args, **kwargs)
         if isinstance(model, Modify) or 'id' in model:
@@ -183,7 +183,7 @@ class DestroyableServiceMixin(object):
 
     def delete(self, id, data=None, **kwargs):
         return self.request('DELETE', '/' + id, data=data, params=P(**kwargs))
-        
+
 
 class FullServiceMixin(FindableServiceMixin,
                        SaveableServiceMixin,
@@ -208,7 +208,7 @@ class AbstractServiceFactory(object):
             self.creds = None
         self._args = args
         self._kwargs = kwargs
-    
+
     def __call__(self, context):
         args = [self.creds] + self._args
         return self.service_class(context, *args, **self._kwargs)
@@ -252,14 +252,14 @@ class TokenService(BaseService, FindableServiceMixin, DestroyableServiceMixin):
     path = '/token'
 
     def create(self, model, **kwargs):
-        return self.request('POST', data=model, params=P(**kwargs)) 
+        return self.request('POST', data=model, params=P(**kwargs))
 
 
 class ShareService(BaseService, FindableServiceMixin, DestroyableServiceMixin):
     path = '/share'
 
     def create(self, model, **kwargs):
-        return self.request('POST', data=model, params=P(**kwargs)) 
+        return self.request('POST', data=model, params=P(**kwargs))
 
 
 class WebSocketService(BaseService):
@@ -309,13 +309,18 @@ class WebSocketClient(object):
         self._app.run_forever()
 
     def subscribe(self, resource, callback=None):
-        self._send('subscribe', resource, callback)
+        self._send('subscribe', 'drop', resource, callback)
 
     def unsubscribe(self, resource, callback=None):
-        self._send('unsubscribe', resource, callback)
+        self._send('unsubscribe', 'drop', resource, callback)
 
-    def _send(self, type, value, callback):
-        data = { 'type': type, 'value': value }
+    def _send(self, type, object, value, callback):
+        data = { 'type': type, 'object': object,}
+        if type == 'subscribe' or type == 'unsubscribe':
+            data['flowId'] = value
+        else:
+            data['value'] = value
+
         if callable(callback):
             rid = self._reply_id
             data['id'] = rid
@@ -338,9 +343,8 @@ class WebSocketClient(object):
         if data['type'] == 'message':
             self.on_message(self, data['resource'], data['value'])
 
-        elif data['type'] == 'reply':
-            rid = data['id']
+        elif data['head']:
+            rid = data['head']['msgId']
             if rid in self._reply_cbs:
-                self._reply_cbs[rid](self, data['value'])
+                self._reply_cbs[rid](self, data['body'])
                 del self._reply_cbs[rid]
-
