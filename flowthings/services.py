@@ -14,10 +14,13 @@ __all__ = (
     'TrackService',
     'APITaskService',
     'MQTTTaskService',
+    'RSSTaskService',
     'FlowService',
     'DropServiceFactory',
     'TokenService',
     'ShareService',
+    'DeviceService',
+    'StatisticsService',
     'WebSocketService',
 )
 
@@ -185,6 +188,22 @@ class DestroyableServiceMixin(object):
         return self.request('DELETE', '/' + id, data=data, params=P(**kwargs))
 
 
+class AggregateServiceMixin(object):
+    """ A mixin to support aggregation. """
+
+    def aggregate(self, output, group_by=None, filter=None, rules=None, sorts=None):
+        data = { 'output': output }
+        if group_by is not None:
+            data['groupBy'] = group_by
+        if filter is not None:
+            data['filter'] = str(filter)
+        if rules is not None:
+            data['rules'] = dict([(k, str(v)) for k, v in rules.iteritems()])
+        if sorts is not None:
+            data['sorts'] = sorts
+        return self.request('POST', '/aggregate', data, None)
+
+
 class FullServiceMixin(FindableServiceMixin,
                        SaveableServiceMixin,
                        DestroyableServiceMixin):
@@ -234,18 +253,37 @@ class MQTTTaskService(BaseService, FullServiceMixin):
     path = '/mqtt'
 
 
+class RSSTaskService(BaseService, FullServiceMixin):
+    path = '/rss'
+
+
+class DeviceService(BaseService, FullServiceMixin):
+    path = '/device'
+
+
 class FlowService(BaseService, FullServiceMixin):
     path = '/flow'
 
 
-class DropService(BaseService, FullServiceMixin):
+class DropService(BaseService, FullServiceMixin, AggregateServiceMixin):
     def __init__(self, flow_id, *args, **kwargs):
         self.path = '/drop/' + flow_id
         BaseService.__init__(self, *args, **kwargs)
 
+    def delete_all(self):
+        return self.request('DELETE', '')
 
-class DropServiceFactory(AbstractServiceFactory):
+
+class DropServiceFactory(BaseService, AbstractServiceFactory):
+    path = '/drop'
     service_class = DropService
+
+    def __init__(self, *args, **kwargs):
+        BaseService.__init__(self, *args, **kwargs)
+        AbstractServiceFactory.__init__(self, *args, **kwargs)
+
+    def create(self, model, **kwargs):
+        return self.request('POST', data=model, params=P(**kwargs))
 
 
 class TokenService(BaseService, FindableServiceMixin, DestroyableServiceMixin):
@@ -260,6 +298,40 @@ class ShareService(BaseService, FindableServiceMixin, DestroyableServiceMixin):
 
     def create(self, model, **kwargs):
         return self.request('POST', data=model, params=P(**kwargs))
+
+
+def statistic(name):
+    def method(self, id, year=None, month=None, day=None, level=None):
+        path = '/%s/%s' % (name, id)
+        if year is not None:
+            path += '/%s' % year
+            if month is not None:
+                path += '/%s' % month
+                if day is not None:
+                    path += '/%s' % day
+        if level is not None:
+            params = { 'level': level }
+        else:
+            params = None
+        return self.request('GET', path, None, params)
+    return method
+
+
+class StatisticsService(BaseService):
+    path = '/statistics'
+
+    flowDropAdded = statistic('flowDropAdded')
+    flowTracked = statistic('flowTracked')
+    trackHit = statistic('trackHit')
+    trackPass = statistic('trackPass')
+    apiCallByIdentity = statistic('apiCallByIdentity')
+    dropCreatedBy = statistic('dropCreatedBy')
+    flow_drop_added = statistic('flowDropAdded')
+    flow_tracked = statistic('flowTracked')
+    track_hit = statistic('trackHit')
+    track_pass = statistic('trackPass')
+    api_call_by_identity = statistic('apiCallByIdentity')
+    drop_created_by = statistic('dropCreatedBy')
 
 
 class WebSocketService(BaseService):

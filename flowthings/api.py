@@ -16,9 +16,12 @@ DEFAULT_SERVICES = {
     'flow'      : services.FlowService,
     'api_task'  : services.APITaskService,
     'mqtt_task' : services.MQTTTaskService,
+    'rss_task'  : services.RSSTaskService,
     'drop'      : services.DropServiceFactory,
     'token'     : services.TokenService,
     'share'     : services.ShareService,
+    'device'    : services.DeviceService,
+    'statistics': services.StatisticsService,
     'websocket' : services.WebSocketService,
 }
 
@@ -36,7 +39,12 @@ ASYNC_LIBS = {
 DEFAULT = {}
 
 
-class API(object):
+class RootRequestProxy(object):
+    def request(self, *args, **kwargs):
+       return self.root.request(*args, **kwargs)
+
+
+class API(RootRequestProxy):
     """ Creates a new API context with the given credentials. All requests
     made through the context will be called as the provided actor. """
 
@@ -98,7 +106,7 @@ class API(object):
             service.creds = creds
 
 
-class AsyncAPI(object):
+class AsyncAPI(RootRequestProxy):
     """ An async wrapper around an API. Services are wrapped with an
     AsyncServiceProxy which calls its methods in a new green thread. Async
     actions can then be collected by calling `results` on the AsyncAPI. """
@@ -112,7 +120,10 @@ class AsyncAPI(object):
     def _proxy_services(self):
         for name, service in self._api._services.items():
             if isinstance(service, services.AbstractServiceFactory):
-                proxy_class = AsyncServiceFactoryProxy
+                if isinstance(service, services.BaseService):
+                    proxy_class = AsyncServiceAndFactoryProxy
+                else:
+                    proxy_class = AsyncServiceFactoryProxy
             else:
                 proxy_class = AsyncServiceProxy
             setattr(self, name, proxy_class(service, self._pool, self._queue))
@@ -178,7 +189,13 @@ class AsyncServiceFactoryProxy(object):
         return AsyncServiceProxy(service, self._pool, self._queue)
 
 
-class LazyAPI(object):
+class AsyncServiceAndFactoryProxy(AsyncServiceProxy, AsyncServiceFactoryProxy):
+    def __init__(self, service, pool, queue):
+        AsyncServiceProxy.__init__(self, service, pool, queue)
+        AsyncServiceFactoryProxy.__init__(self, service, pool, queue)
+
+
+class LazyAPI(RootRequestProxy):
     """ A lazy wrapper around an API. Similar to the async api, but returns
     MutableMapping thunk wrappers around results. All requests are fired off
     in new green threads, but only block once you try to access data. This
@@ -193,7 +210,10 @@ class LazyAPI(object):
         get_method = self._api._async_map['get']
         for name, service in self._api._services.items():
             if isinstance(service, services.AbstractServiceFactory):
-                proxy_class = LazyServiceFactoryProxy
+                if isinstance(service, services.BaseService):
+                    proxy_class = LazyServiceAndFactoryProxy
+                else:
+                    proxy_class = LazyServiceFactoryProxy
             else:
                 proxy_class = LazyServiceProxy
             setattr(self, name, proxy_class(service, self._pool, get_method))
@@ -227,6 +247,12 @@ class LazyServiceFactoryProxy(object):
     def __call__(self, context):
         service = self._factory(context)
         return LazyServiceProxy(service, self._pool, self._get_method)
+
+
+class LazyServiceAndFactoryProxy(LazyServiceProxy, LazyServiceFactoryProxy):
+    def __init__(self, service, pool, queue):
+        LazyServiceProxy.__init__(self, service, pool, queue)
+        LazyServiceFactoryProxy.__init__(self, service, pool, queue)
 
 
 class GreenThunk(MutableMapping):

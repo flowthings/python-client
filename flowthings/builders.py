@@ -1,5 +1,9 @@
+import os
+import json
 from copy import deepcopy
 from collections import namedtuple
+
+from .exceptions import FlowThingsError
 
 
 __all__ = (
@@ -18,6 +22,21 @@ __all__ = (
 
 
 Token = namedtuple('Token', ['account', 'token'])
+
+
+def from_bluemix(default=None, env_var='VCAP_SERVICES'):
+    try:
+        vcap = json.loads(os.environ[env_var])
+        conf = vcap['flowthings'][0]['credentials']
+        return Token(conf['account'], conf['token'])
+    except:
+        if default:
+            return default
+        else:
+            raise FlowThingsError('Bluemix credentials not found')
+
+
+setattr(Token, 'from_bluemix', staticmethod(from_bluemix))
 
 
 class Params(object):

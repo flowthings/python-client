@@ -11,6 +11,12 @@ flowthings
 
       >>> creds = Token('<account>', '<token>')
 
+   .. py:staticmethod:: from_bluemix(default=None, env_var='VCAP_SERVICES')
+
+      Loads a :py:class:`Token` object from an IBM Bluemix environment. If a
+      ``default`` :py:class:`Token` is provided, it will be returned in case of
+      a failure, otherwise a :py:class:`FlowThingsError` will be raised.
+
 .. py:class:: API(creds, \
                   async_lib=DEFAULT, \
                   secure=DEFAULT, \
@@ -33,12 +39,16 @@ flowthings
    * ``identity``
    * ``api_task``
    * ``mqtt_task``
+   * ``rss_task``
    * ``token``
    * ``share``
+   * ``device``
+   * ``statistics``
    * ``websocket``
 
    For documentation on these services, read :ref:`services`,
-   :ref:`authentication`, and :ref:`websockets`.
+   :ref:`authentication`, :ref:`statistics`, :ref:`aggregation`,
+   and :ref:`websockets`.
 
    .. py:method:: async([pool])
       
@@ -56,6 +66,15 @@ flowthings
       accessed.
 
       For more documentation, read :ref:`async-and-parallel`.
+
+   .. py:method:: request(method, path, data=None, params=None)
+
+      :param str method: HTTP method
+      :param str path: Request path
+      :param dict data: Request data
+      :param dict params: Request query parameters
+
+      Makes an arbitrary platform request.
 
    .. py:attribute:: creds
 
@@ -184,7 +203,7 @@ refer to the platform documentation for the options.
 
    >>> resp, refs = api.flow.find('<flow_id>', refs=True)
 
-.. _criteria:
+.. _filters:
 
 Request Filters
 ---------------
@@ -233,26 +252,48 @@ Boolean operations are supported on filters using ``AND`` and ``OR``.::
 
    >>> api.flow.find((mem.displayName == 'foo').OR(mem.displayName == 'bar'))
 
-.. _modifications:
+.. _authentication:
 
-Modifications
--------------
+Authentication
+--------------
 
-:py:meth:`Service update methods <service.update>` can also take an instance
-of a modification helper called :py:class:`M`. It lets you gradually make
-updates to a model and then extract the diff and model with the changes
-applied.
+If you create your :py:class:`API` using a master token, you can create and
+manage tokens and shares.
 
-When passed directly to an update method, only the changes will be sent to the
-server instead of the entire model.
+.. py:function:: api.token.create(model, **params)
 
-.. py:class:: M(model, **changes)
+.. py:function:: api.share.create(model, **params)
 
-   .. py:method:: modify(key, val)
+Both tokens and shares support ``find`` and ``delete`` methods like other
+services.  They are, however, immutable and do not support updates.
 
-   .. py:method:: done()
+.. _statistics:
 
-      Returns a tuple of ``(new_model, diff)``.
+Statistics
+----------
+
+.. py:function:: api.statistics.flow_drop_added(flow_id, year=None, month=None, day=None, level=None)
+
+.. py:function:: api.statistics.flow_tracked(flow_id, year=None, month=None, day=None, level=None)
+
+.. py:function:: api.statistics.track_hit(track_id, year=None, month=None, day=None, level=None)
+
+.. py:function:: api.statistics.track_pass(track_id, year=None, month=None, day=None, level=None)
+
+.. py:function:: api.statistics.api_call_by_identity(identity_id, year=None, month=None, day=None, level=None)
+
+.. py:function:: api.statistics.drop_created_by(identity_id, year=None, month=None, day=None, level=None)
+
+.. _aggregation:
+
+Aggregation
+-----------
+
+.. py:function:: api.drop(flow_id).aggregate(outputs, group_by=None, filter=None, rules=None, sorts=None)
+
+Both ``filter`` and ``rules`` support :ref:`filters`.::
+
+   >>> api.drop(flow_id).aggregate(['$avg:test'], rules={'test': mem.foo > 42})
 
 .. _exceptions:
 
@@ -287,20 +328,26 @@ Exceptions
 
 .. py:class:: FlowThingsServerError
 
-.. _authentication:
+.. _modifications:
 
-Authentication
---------------
+Modifications
+-------------
 
-If you create your :py:class:`API` using a master token, you can create and
-manage tokens and shares.
+:py:meth:`Service update methods <service.update>` can also take an instance
+of a modification helper called :py:class:`M`. It lets you gradually make
+updates to a model and then extract the diff and model with the changes
+applied.
 
-.. py:function:: api.token.create(model, **params)
+When passed directly to an update method, only the changes will be sent to the
+server instead of the entire model.
 
-.. py:function:: api.share.create(model, **params)
+.. py:class:: M(model, **changes)
 
-Both tokens and shares support ``find`` and ``delete`` methods like other
-services.  They are, however, immutable and do not support updates.
+   .. py:method:: modify(key, val)
+
+   .. py:method:: done()
+
+      Returns a tuple of ``(new_model, diff)``.
 
 .. _async-and-parallel:
 

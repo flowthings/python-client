@@ -37,6 +37,26 @@ def mock_api_request_not_found(method, url, params=None, data=None, creds=None):
     raise FlowThingsNotFound
 
 
+class TestAsyncLib(object):
+    def __init__(self):
+        self.__name__ = 'eventlet'
+
+    class GreenThread(object):
+        def __init__(self, value):
+            self.value = value
+
+        def wait(self):
+            # Box as proof it was executed "async"
+            return { 'async': self.value }
+
+    class GreenPool(object):
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def spawn(self, method, *args, **kwargs):
+            return TestAsyncLib.GreenThread(method(*args, **kwargs))
+
+
 def TestAPI(*args, **kwargs):
     if 'request' not in kwargs:
         kwargs['request'] = mock_api_request_ok
@@ -53,17 +73,30 @@ def TestAPI(*args, **kwargs):
     if 'version' not in kwargs:
         kwargs['version'] = 'test'
 
+    if 'async_lib' not in kwargs:
+        kwargs['async_lib'] = TestAsyncLib()
+
     if len(args) == 0:
         args = (CREDS,)
 
     return API(*args, **kwargs)
-
 
 class RequestTestCase(TestCase):
 
     def test_request(self):
         api  = TestAPI()
         resp = api.root.request('PUT', '/foo', data='foo', params={ 'foo': True })
+        self.assertEqual(resp, {
+            'url': 'https://test/vtest/acc/foo',
+            'method': 'PUT',
+            'params': { 'foo': True },
+            'data': 'foo',
+            'creds': CREDS,
+        })
+
+    def test_request_proxy(self):
+        api  = TestAPI()
+        resp = api.request('PUT', '/foo', data='foo', params={ 'foo': True })
         self.assertEqual(resp, {
             'url': 'https://test/vtest/acc/foo',
             'method': 'PUT',
@@ -277,6 +310,17 @@ class RequestTestCase(TestCase):
             'creds': CREDS,
         })
 
+    def test_delete_all(self):
+        api  = TestAPI()
+        resp = api.drop('foo').delete_all()
+        self.assertEqual(resp, {
+            'url': 'https://test/vtest/acc/drop/foo',
+            'method': 'DELETE',
+            'params': {},
+            'data': None,
+            'creds': CREDS,
+        })
+
     def test_token_create(self):
         api  = TestAPI()
         resp = api.token.create({
@@ -317,6 +361,49 @@ class RequestTestCase(TestCase):
             'creds': CREDS,
         })
 
+    def test_aggregate(self):
+        api  = TestAPI()
+        resp = api.drop('test').aggregate(['$avg:foo', '$min:bar'],
+            group_by=['$month'],
+            filter=mem.foo > 12,
+            rules={'rule': mem.bar > 42},
+            sorts=['foo'])
+        self.assertEqual(resp, {
+            'url': 'https://test/vtest/acc/drop/test/aggregate',
+            'method': 'POST',
+            'params': {},
+            'data': {
+                'output': ['$avg:foo', '$min:bar'],
+                'groupBy': ['$month'],
+                'filter': 'foo > 12',
+                'rules': {'rule': 'bar > 42'},
+                'sorts': ['foo']
+            },
+            'creds': CREDS,
+        })
+
+    def test_statistics(self):
+        api  = TestAPI()
+        resp = api.statistics.flow_drop_added('foo', 2015, 12, 1, 'year')
+        self.assertEqual(resp, {
+            'url': 'https://test/vtest/acc/statistics/flowDropAdded/foo/2015/12/1',
+            'method': 'GET',
+            'params': { 'level': 'year' },
+            'data': None,
+            'creds': CREDS,
+        })
+
+    def test_drop_create(self):
+        api  = TestAPI()
+        resp = api.drop.create({ 'path': '/foo' })
+        self.assertEqual(resp, {
+            'url': 'https://test/vtest/acc/drop',
+            'method': 'POST',
+            'params': {},
+            'data': { 'path': '/foo' },
+            'creds': CREDS,
+        })
+
     def test_ws_session_create(self):
         api  = TestAPI()
         resp = api.websocket.request('POST')
@@ -327,6 +414,81 @@ class RequestTestCase(TestCase):
             'data': None,
             'creds': CREDS,
         })
+
+
+class AsyncTestCase(TestCase):
+
+    def test_async_methods(self):
+        par = TestAPI().async()
+        par.flow.find('foo')
+        par.drop('foo').find('bar')
+        par.drop.create({ 'path': '/foo' })
+        self.assertEqual(par.results(), [
+            {
+                'async': {
+                    'url': 'https://test/vtest/acc/flow/foo',
+                    'method': 'GET',
+                    'params': {},
+                    'data': None,
+                    'creds': CREDS
+                }
+            },
+            {
+                'async': {
+                    'url': 'https://test/vtest/acc/drop/foo/bar',
+                    'method': 'GET',
+                    'params': {},
+                    'data': None,
+                    'creds': CREDS
+                }
+            },
+            {
+                'async': {
+                    'url': 'https://test/vtest/acc/drop',
+                    'method': 'POST',
+                    'params': {},
+                    'data': { 'path': '/foo' },
+                    'creds': CREDS
+                }
+            },
+        ])
+
+    def test_lazy_methods(self):
+        laz = TestAPI().lazy()
+        results = [
+            laz.flow.find('foo').unwrap(),
+            laz.drop('foo').find('bar').unwrap(),
+            laz.drop.create({ 'path': '/foo' }).unwrap(),
+        ]
+        self.assertEqual(results, [
+            {
+                'async': {
+                    'url': 'https://test/vtest/acc/flow/foo',
+                    'method': 'GET',
+                    'params': {},
+                    'data': None,
+                    'creds': CREDS
+                }
+            },
+            {
+                'async': {
+                    'url': 'https://test/vtest/acc/drop/foo/bar',
+                    'method': 'GET',
+                    'params': {},
+                    'data': None,
+                    'creds': CREDS
+                }
+            },
+            {
+                'async': {
+                    'url': 'https://test/vtest/acc/drop',
+                    'method': 'POST',
+                    'params': {},
+                    'data': { 'path': '/foo' },
+                    'creds': CREDS
+                }
+            },
+        ])
 
 
 class FilterTestCase(TestCase):
@@ -378,3 +540,29 @@ class FilterTestCase(TestCase):
 
     def test_OR(self):
         self.assertEqual(str((mem.foo == 1).OR(mem.bar == 2)), '(foo == 1) || (bar == 2)')
+
+
+class BluemixTestCase(TestCase):
+
+    def test_load_env(self):
+        import os
+        import json
+        os.environ['VCAP_SERVICES'] = json.dumps({
+            'flowthings': [
+                {
+                    'credentials': {
+                        'account': 'test',
+                        'token': 'token',
+                    }
+                }
+            ]
+        })
+
+        token = Token.from_bluemix()
+        self.assertEqual(token.account, 'test')
+        self.assertEqual(token.token, 'token')
+
+    def test_default(self):
+        token = Token.from_bluemix(Token('foo', 'bar'), env_var='DOES_NOT_EXIST_PROBABLY')
+        self.assertEqual(token.account, 'foo')
+        self.assertEqual(token.token, 'bar')
