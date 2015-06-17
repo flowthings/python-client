@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='flowthings',
-      version='1.0.1',
+      version='1.0.2',
       description='API client for the flowthings.io platform',
       author='flowthings',
       author_email='dev@flowthings.io',
