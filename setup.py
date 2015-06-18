@@ -8,4 +8,4 @@ setup(name='flowthings',
       url='https://github.com/flowthings/python-client',
       test_suite='tests',
       packages=['flowthings'],
-      install_requires=['requests', 'websocket-client'])
+      install_requires=['requests', 'websocket-client', 'six'])

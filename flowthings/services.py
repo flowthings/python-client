@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import json
 import websocket
 from copy import copy
@@ -6,6 +7,7 @@ from .exceptions import *
 from .utils import api_request, default, plat_exception
 from .builders import *
 from .default import defaults
+import six
 
 
 __all__ = (
@@ -132,7 +134,7 @@ class FindableServiceMixin(object):
         except IndexError:
             first = None
 
-        if isinstance(first, (str, unicode)):
+        if isinstance(first, (str, six.text_type)):
             return self.read(first, *tail, **kwargs)
         if isinstance(first, list):
             return self.read_many(first, *tail, **kwargs)
@@ -198,7 +200,7 @@ class AggregateServiceMixin(object):
         if filter is not None:
             data['filter'] = str(filter)
         if rules is not None:
-            data['rules'] = dict([(k, str(v)) for k, v in rules.iteritems()])
+            data['rules'] = dict([(k, str(v)) for k, v in six.iteritems(rules)])
         if sorts is not None:
             data['sorts'] = sorts
         return self.request('POST', '/aggregate', data, None)

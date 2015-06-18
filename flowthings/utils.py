@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from time import time
 from hashlib import sha1
 
@@ -34,7 +35,7 @@ def api_request(method, url, params=None, data=None, creds=None):
                            data=data,
                            headers=mk_headers(creds))
     logger.info('%d %s', res.status_code, res.content)
-    return (res.content, res.headers, res.status_code)
+    return (res.text, res.headers, res.status_code)
 
 
 ERROR_TABLE = {

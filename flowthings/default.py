@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import json
 from .utils import api_request
 
@@ -22,7 +23,7 @@ class Defaults(object):
         self.ws_host = ws_host
         self.version = version
         self.request = request
-        self.encoder = json
+        self.encoder = encoder
         self.params = params
 
 

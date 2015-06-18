@@ -10,11 +10,11 @@ class FlowThingsException(Exception):
         self.path = path
 
     def __repr__(self):
-        parts = filter(None, [
+        parts = [_f for _f in [
             self.creds.account if self.creds else None,
             self.method,
             self.path,
-            str(self.errors) if self.errors else None ])
+            str(self.errors) if self.errors else None ] if _f]
 
         return '<%s %s>' % (self.__class__.__name__, ' '.join(parts))
 

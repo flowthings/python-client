@@ -1,9 +1,13 @@
+from __future__ import absolute_import
 import os
 import json
 from copy import deepcopy
 from collections import namedtuple
 
 from .exceptions import FlowThingsError
+from six.moves import map
+import six
+from functools import reduce
 
 
 __all__ = (
@@ -312,13 +316,13 @@ def NOT(filter):
     return NotFilter(filter)
 
 
-PRIMITIVE_OPERANDS = (Member, Regex, str, unicode, int, float, bool)
+PRIMITIVE_OPERANDS = (Member, Regex, str, six.text_type, int, float, bool)
 
 
 def prim_str(prim):
     if isinstance(prim, bool):
         return 'true' if prim else 'false'
-    if isinstance(prim, (str, unicode)):
+    if isinstance(prim, (str, six.text_type)):
         return "'%s'" % prim.replace("'", "\\'")
     if isinstance(prim, (Member, Regex, int, float)):
         return str(prim)
