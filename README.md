@@ -10,11 +10,9 @@ pip install flowthings
 ```
 
 ## Docs
-```sh
-pip install sphinx
-cd docs
-sphinx-build -b html . .
-```
+
+* [Latest](https://flowthings-python-client.readthedocs.org/en/latest/)
+* [Stable](https://flowthings-python-client.readthedocs.org/en/stable/)
 
 ## Other Resources
 * See the [10 Minute Chat Example](https://github.com/flowthings/python-chat-example) project on GitHub
