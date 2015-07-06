@@ -397,7 +397,7 @@ class WebSocketClient(object):
 
         if callable(callback):
             rid = self._reply_id
-            data['id'] = rid
+            data['msgId'] = rid
             self._reply_id += 1
             self._reply_cbs[rid] = callback
         self._app.send(self._encoder.dumps(data))
@@ -414,10 +414,10 @@ class WebSocketClient(object):
     def _on_message(self, ws, payload):
         data = self._encoder.loads(payload)
 
-        if data['type'] == 'message':
+        if 'type' in data and data['type'] == 'message':
             self.on_message(self, data['resource'], data['value'])
 
-        elif data['head']:
+        elif 'head' in data:
             rid = data['head']['msgId']
             if rid in self._reply_cbs:
                 self._reply_cbs[rid](self, data['body'])
