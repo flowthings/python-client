@@ -383,18 +383,24 @@ class WebSocketClient(object):
         self._app.run_forever()
 
     def subscribe(self, resource, callback=None):
-        self._send('subscribe', 'drop', resource, callback)
+        field = 'path' if resource[0] == '/' else 'flowId'
+        data = {
+            'type': 'subscribe',
+            'object': 'drop',
+            field: resource,
+        }
+        self.send(data, callback)
 
     def unsubscribe(self, resource, callback=None):
-        self._send('unsubscribe', 'drop', resource, callback)
+        field = 'path' if resource[0] == '/' else 'flowId'
+        data = {
+            'type': 'unsubscribe',
+            'object': 'drop',
+            field: resource,
+        }
+        self.send(data, callback)
 
-    def _send(self, type, object, value, callback):
-        data = { 'type': type, 'object': object,}
-        if type == 'subscribe' or type == 'unsubscribe':
-            data['flowId'] = value
-        else:
-            data['value'] = value
-
+    def send(self, data, callback=None):
         if callable(callback):
             rid = self._reply_id
             data['msgId'] = rid
