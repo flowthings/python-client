@@ -22,7 +22,7 @@ def mk_headers(creds):
     assert isinstance(creds, Token)
     return {
       'accept': '*/*',
-      'content-type': 'application/json; charset="UTF-8"',
+      'content-type': 'application/json',
       'x-auth-token': creds.token,
       'x-auth-account': creds.account }
 
