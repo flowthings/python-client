@@ -182,13 +182,17 @@ class LocationFilter(Filter):
 
 
 class AgeFilter(Filter):
-    def __init__(self, operator, ms):
+    def __init__(self, member, operator, ms):
         assert isinstance(ms, (int, float)) and ms > 0, 'Age must be a number greater than 0'
+        self.member = member
         self.operator = operator
         self.ms = ms
 
     def __str__(self):
-        return 'AGE %s %s' % (self.operator, self.ms)
+        if self.member is None:
+            return 'AGE %s %s' % (self.operator, self.ms)
+        else:
+            return 'AGE(%s) %s %s' % (prim_str(self.member), self.operator, self.ms)
 
 
 class MatchesFilter(Filter):
@@ -278,26 +282,35 @@ class MemberFactory(object):
 mem = MemberFactory()
 
 
-class AGE(object):
+class AgeFactory(object):
+    def __init__(self, member=None):
+        self.member = member
+
+    def __call__(self, name):
+        if self.member is None:
+            return AgeFactory(name)
+        else:
+            return AgeFactory('%s.%s' % (self.member, name))
+
     def __eq__(self, that):
-        return AgeFilter('==', that)
+        return AgeFilter(self.member, '==', that)
 
     def __ne__(self, that):
-        return AgeFilter('!=', that)
+        return AgeFilter(self.member, '!=', that)
 
     def __gt__(self, that):
-        return AgeFilter('>', that)
+        return AgeFilter(self.member, '>', that)
 
     def __ge__(self, that):
-        return AgeFilter('>=', that)
+        return AgeFilter(self.member, '>=', that)
 
     def __lt__(self, that):
-        return AgeFilter('<', that)
+        return AgeFilter(self.member, '<', that)
 
     def __le__(self, that):
-        return AgeFilter('<=', that)
+        return AgeFilter(self.member, '<=', that)
 
-AGE = AGE()
+AGE = AgeFactory(None)
 
 
 def EXISTS(name):

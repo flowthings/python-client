@@ -520,6 +520,7 @@ class FilterTestCase(TestCase):
         self.assertEqual(str(AGE >= 123), 'AGE >= 123')
         self.assertEqual(str(AGE <  123), 'AGE < 123')
         self.assertEqual(str(AGE <= 123), 'AGE <= 123')
+        self.assertEqual(str(AGE('lastEditDate') == 123), "AGE('lastEditDate') == 123")
 
     def test_EXISTS(self):
         self.assertEqual(str(EXISTS('foo')), 'EXISTS foo')
