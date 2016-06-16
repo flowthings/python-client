@@ -1,6 +1,4 @@
 from __future__ import absolute_import
-from time import time
-from hashlib import sha1
 
 import logging
 import requests
@@ -27,12 +25,13 @@ def mk_headers(creds):
       'x-auth-account': creds.account }
 
 
-def api_request(method, url, params=None, data=None, creds=None):
+def api_request(method, url, params=None, data=None, creds=None, verify=True):
     """ Make a request with the proper credential headers. """
     logger.info('%s %s %s %s', method, url, params, data)
     res = requests.request(method, url,
                            params=params,
                            data=data,
+                           verify=verify,
                            headers=mk_headers(creds))
     logger.info('%d %s', res.status_code, res.content)
     return (res.text, res.headers, res.status_code)
