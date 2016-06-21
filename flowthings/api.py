@@ -49,12 +49,13 @@ class API(RootRequestProxy):
     """ Creates a new API context with the given credentials. All requests
     made through the context will be called as the provided actor. """
 
-    def __init__(self, creds, async_lib=DEFAULT, *args, **kwargs):
+    def __init__(self, creds, async_lib=DEFAULT, verify_ssl=True, *args, **kwargs):
         self._creds = creds
         self._args = args
         self._kwargs = kwargs
         self._services = {}
         self._create_services()
+        self._verify_ssl = verify_ssl
 
         if async_lib is DEFAULT:
             self._async_lib = defaults.async_lib
@@ -73,7 +74,7 @@ class API(RootRequestProxy):
         AbstractServiceFactory. Given a name and a class, will instantiate the
         service with the API's options and add it to the API instance. """
 
-        self._services[name] = cls(self._creds, *self._args, **self._kwargs)
+        self._services[name] = cls(self._creds, *self._args, verify_ssl=self._verify_ssl, **self._kwargs)
         setattr(self, name, self._services[name])
 
     def async(self, pool=None):
@@ -111,7 +112,7 @@ class AsyncAPI(RootRequestProxy):
     """ An async wrapper around an API. Services are wrapped with an
     AsyncServiceProxy which calls its methods in a new green thread. Async
     actions can then be collected by calling `results` on the AsyncAPI. """
-    
+
     def __init__(self, api, pool):
         self._api = api
         self._pool = pool
@@ -160,7 +161,7 @@ class AsyncAPI(RootRequestProxy):
 
 
 class AsyncServiceProxy(object):
-    """ Wraps a service to spawn a new greenthread for each call. """
+    """ wraps a service to spawn a new greenthread for each call. """
 
     def __init__(self, service, pool, queue):
         self._service = service

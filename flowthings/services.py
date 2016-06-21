@@ -1,13 +1,13 @@
 from __future__ import absolute_import
-import json
 import websocket
 from copy import copy
 
 from .exceptions import *
-from .utils import api_request, default, plat_exception
+from .utils import default, plat_exception
 from .builders import *
 from .default import defaults
 import six
+from functools import partial
 
 
 __all__ = (
@@ -34,7 +34,7 @@ class BaseService(object):
     path = ''
 
     def __init__(self, creds, secure=None, host=None, version=None,
-                 encoder=None, params=None, request=None, **kwargs):
+                 encoder=None, params=None, request=None, verify_ssl=True, **kwargs):
 
         self.creds = creds
         self._secure    = default(secure, defaults.secure)
@@ -42,7 +42,10 @@ class BaseService(object):
         self._version   = default(version, defaults.version)
         self._encoder   = default(encoder, defaults.encoder)
         self._params    = default(params, defaults.params)
-        self._request   = default(request, defaults.request)
+        if verify_ssl:
+            self._request   = default(request, defaults.request)
+        else:
+            self._request = partial(defaults.request, verify_ssl=False)
 
     def request(self, method, path='', data=None, params=None):
         """ A basic request method where you can supply a method, path, data
