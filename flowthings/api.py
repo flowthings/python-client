@@ -51,11 +51,11 @@ class API(RootRequestProxy):
 
     def __init__(self, creds, async_lib=DEFAULT, verify_ssl=True, *args, **kwargs):
         self._creds = creds
+        self._verify_ssl = verify_ssl
         self._args = args
         self._kwargs = kwargs
         self._services = {}
         self._create_services()
-        self._verify_ssl = verify_ssl
 
         if async_lib is DEFAULT:
             self._async_lib = defaults.async_lib
