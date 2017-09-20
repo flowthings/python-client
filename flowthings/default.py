@@ -8,7 +8,7 @@ DEFAULT = {}
 
 class Defaults(object):
     def __init__(self, async_lib=None, secure=True, host='api.flowthings.io',
-                 version='0.1', request=api_request, encoder=json,
+                 version='4.0', request=api_request, encoder=json,
                  params=DEFAULT, ws_host='ws.flowthings.io', verify=True):
 
         if params is DEFAULT:
